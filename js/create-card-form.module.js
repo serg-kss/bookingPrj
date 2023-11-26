@@ -54,7 +54,7 @@ function fieldTimeOutHandler (event) {field_time_in.value = event.target.value;}
 
 function serializeForm(formNode) {
   const { elements } = formNode
-  
+  //dataform form data
   Array.from(elements)
     .forEach((element) => {
       const { name, value } = element
