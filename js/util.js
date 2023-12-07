@@ -37,3 +37,7 @@ export function assignmentValue(field, value, obj) {
     }
   }
 }
+
+export function disabledTrue (element) {
+  element.setAttribute('disabled', 'true');
+}

@@ -1,5 +1,5 @@
 import { appartments_price_min, max_price, title_validation } from './data.js';
-import { assignmentValue } from './util.js';
+import { assignmentValue, disabledTrue } from './util.js';
 
 const cardFormApplication = document.querySelector('.ad-form');
 const field_title = document.getElementById('title');
@@ -10,6 +10,13 @@ const field_time_out = document.getElementById('timeout');
 const field_room_number = document.getElementById('room_number');
 const field_capacity = document.getElementById('capacity');
 const default_value = '';
+const guests_rooms = {
+  one_guest: '1',
+  two_guest: '2',
+  three_guest: '3',
+  no_guest: '0',
+  hundred_rooms: '100'
+}
 
 field_title.addEventListener('change', fieldTitleHandler);
 field_type.addEventListener('change', fieldTypeHandler);
@@ -63,10 +70,10 @@ function fieldTimeOutHandler (event) {field_time_in.value = event.target.value;}
 //по умолчанию для одной комнаты при загрузке страницы
 function defaultRoom(field_capacity) {
   const capacity = field_capacity.children;
-  const default_capacity = '1';
+  const default_capacity = guests_rooms.one_guest;
   Array.from(capacity).forEach( (element) => {
     if (element.value != default_capacity) {
-      element.setAttribute('disabled', 'true')
+      disabledTrue(element);
     }
   })
   field_capacity.value = default_capacity
@@ -82,42 +89,30 @@ function fieldRoomNumberHandler (event) {
   })
   //колличество комнат,  тут надо сопоставить колличество комнат с кол гостями и отключить ненужные варианты 
   const room_value = event.target.value;
-  const guests_rooms = {
-    one_guest: '1',
-    two_guest: '2',
-    three_guest: '3',
-    no_guest: '0',
-    hundred_rooms: '100'
-  }
+
   if (room_value == guests_rooms.one_guest) {
     Array.from(capacity).forEach( (element) => {
       if (element.value != guests_rooms.one_guest) {
-        element.setAttribute('disabled', 'true')
+        disabledTrue(element);
       }
     })
     field_capacity.value = guests_rooms.one_guest; // вставляем значение в поле формы
   } else if (room_value == guests_rooms.two_guest){
     Array.from(capacity).forEach( (element) => {
-      if (element.value > guests_rooms.two_guest) {
-        element.setAttribute('disabled', 'true')
-      }
-      if (element.value == guests_rooms.no_guest) {
-        element.setAttribute('disabled', 'true')
+      if (element.value > guests_rooms.two_guest || element.value == guests_rooms.no_guest) {
+        disabledTrue(element);
       }
     })
   } else if (room_value == guests_rooms.three_guest){
     Array.from(capacity).forEach( (element) => {
-      if (element.value > guests_rooms.three_guest) {
-        element.setAttribute('disabled', 'true')
-      }
-      if (element.value == guests_rooms.no_guest) {
-        element.setAttribute('disabled', 'true')
+      if (element.value > guests_rooms.three_guest || element.value == guests_rooms.no_guest) {
+        disabledTrue(element);
       }
     })
   } else if (room_value == guests_rooms.hundred_rooms){
     Array.from(capacity).forEach( (element) => {
       if (element.value != guests_rooms.no_guest) {
-        element.setAttribute('disabled', 'true')
+        disabledTrue(element);
       }
     })
     field_capacity.value = guests_rooms.no_guest;
