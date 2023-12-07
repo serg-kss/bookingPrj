@@ -76,20 +76,52 @@ defaultRoom(field_capacity);
 //смотрим сколько комнат выбрано, затем отключаем ненужные варианты,
 function fieldRoomNumberHandler (event) {
   const capacity = field_capacity.children;
-  console.log(capacity)
   //берем options (колличество мест) и делаем их активными
   Array.from(capacity).forEach((element) => {
-    element.setAttribute('disabled', 'false')
+    element.removeAttribute("disabled");
   })
   //колличество комнат,  тут надо сопоставить колличество комнат с кол гостями и отключить ненужные варианты 
   const room_value = event.target.value;
-  const rooms_options = field_room_number.children; 
-  Array.from(rooms_options).forEach((element) => {
-    if (room_value == element.value) {
-      Array.from(rooms_options)
-    }
-  })
-
+  const guests_rooms = {
+    one_guest: '1',
+    two_guest: '2',
+    three_guest: '3',
+    no_guest: '0',
+    hundred_rooms: '100'
+  }
+  if (room_value == guests_rooms.one_guest) {
+    Array.from(capacity).forEach( (element) => {
+      if (element.value != guests_rooms.one_guest) {
+        element.setAttribute('disabled', 'true')
+      }
+    })
+    field_capacity.value = guests_rooms.one_guest; // вставляем значение в поле формы
+  } else if (room_value == guests_rooms.two_guest){
+    Array.from(capacity).forEach( (element) => {
+      if (element.value > guests_rooms.two_guest) {
+        element.setAttribute('disabled', 'true')
+      }
+      if (element.value == guests_rooms.no_guest) {
+        element.setAttribute('disabled', 'true')
+      }
+    })
+  } else if (room_value == guests_rooms.three_guest){
+    Array.from(capacity).forEach( (element) => {
+      if (element.value > guests_rooms.three_guest) {
+        element.setAttribute('disabled', 'true')
+      }
+      if (element.value == guests_rooms.no_guest) {
+        element.setAttribute('disabled', 'true')
+      }
+    })
+  } else if (room_value == guests_rooms.hundred_rooms){
+    Array.from(capacity).forEach( (element) => {
+      if (element.value != guests_rooms.no_guest) {
+        element.setAttribute('disabled', 'true')
+      }
+    })
+    field_capacity.value = guests_rooms.no_guest;
+  }
 }
 
 function serializeForm(formNode) {
