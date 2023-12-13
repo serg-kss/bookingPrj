@@ -16,7 +16,6 @@ let map = L.map(map_container);
 
 //page is acrive, after init
 map.on('load', () => {
-  console.log("we are here")
   cardFormApplication.classList.remove('ad-form--disabled');
   filterForm.classList.remove('ad-form--disabled');
   //fieldSets.forEach((fieldSet) => {fieldSet.setAttribute('disabled', 'false')})

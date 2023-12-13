@@ -38,6 +38,6 @@ export function assignmentValue(field, value, obj) {
   }
 }
 
-export function disabledTrue (element) {
+export function disableElement (element) {
   element.setAttribute('disabled', 'true');
 }

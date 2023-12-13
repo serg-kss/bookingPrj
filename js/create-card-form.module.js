@@ -1,5 +1,5 @@
 import { appartments_price_min, max_price, title_validation } from './data.js';
-import { assignmentValue, disabledTrue } from './util.js';
+import { assignmentValue, disableElement } from './util.js';
 
 const cardFormApplication = document.querySelector('.ad-form');
 const field_title = document.getElementById('title');
@@ -10,12 +10,12 @@ const field_time_out = document.getElementById('timeout');
 const field_room_number = document.getElementById('room_number');
 const field_capacity = document.getElementById('capacity');
 const default_value = '';
-const guests_rooms = {
-  one_guest: '1',
-  two_guest: '2',
-  three_guest: '3',
-  no_guest: '0',
-  hundred_rooms: '100'
+const guestsRooms = {
+  oneGuest: '1',
+  twoGuest: '2',
+  threeGuest: '3',
+  noGuest: '0',
+  hundredRooms: '100'
 }
 
 field_title.addEventListener('change', fieldTitleHandler);
@@ -70,10 +70,10 @@ function fieldTimeOutHandler (event) {field_time_in.value = event.target.value;}
 //по умолчанию для одной комнаты при загрузке страницы
 function defaultRoom(field_capacity) {
   const capacity = field_capacity.children;
-  const default_capacity = guests_rooms.one_guest;
+  const default_capacity = guestsRooms.oneGuest;
   Array.from(capacity).forEach( (element) => {
     if (element.value != default_capacity) {
-      disabledTrue(element);
+      disableElement(element);
     }
   })
   field_capacity.value = default_capacity
@@ -90,32 +90,32 @@ function fieldRoomNumberHandler (event) {
   //колличество комнат,  тут надо сопоставить колличество комнат с кол гостями и отключить ненужные варианты 
   const room_value = event.target.value;
 
-  if (room_value == guests_rooms.one_guest) {
+  if (room_value == guestsRooms.oneGuest) {
     Array.from(capacity).forEach( (element) => {
-      if (element.value != guests_rooms.one_guest) {
-        disabledTrue(element);
+      if (element.value != guestsRooms.oneGuest) {
+        disableElement(element);
       }
     })
-    field_capacity.value = guests_rooms.one_guest; // вставляем значение в поле формы
-  } else if (room_value == guests_rooms.two_guest){
+    field_capacity.value = guestsRooms.oneGuest; // вставляем значение в поле формы
+  } else if (room_value == guestsRooms.twoGuest){
     Array.from(capacity).forEach( (element) => {
-      if (element.value > guests_rooms.two_guest || element.value == guests_rooms.no_guest) {
-        disabledTrue(element);
+      if (element.value > guestsRooms.twoGuest || element.value == guestsRooms.noGuest) {
+        disableElement(element);
       }
     })
-  } else if (room_value == guests_rooms.three_guest){
+  } else if (room_value == guestsRooms.threeGuest){
     Array.from(capacity).forEach( (element) => {
-      if (element.value > guests_rooms.three_guest || element.value == guests_rooms.no_guest) {
-        disabledTrue(element);
+      if (element.value > guestsRooms.threeGuest || element.value == guestsRooms.noGuest) {
+        disableElement(element);
       }
     })
-  } else if (room_value == guests_rooms.hundred_rooms){
+  } else if (room_value == guestsRooms.hundredRooms){
     Array.from(capacity).forEach( (element) => {
-      if (element.value != guests_rooms.no_guest) {
-        disabledTrue(element);
+      if (element.value != guestsRooms.noGuest) {
+        disableElement(element);
       }
     })
-    field_capacity.value = guests_rooms.no_guest;
+    field_capacity.value = guestsRooms.noGuest;
   }
 }
 
