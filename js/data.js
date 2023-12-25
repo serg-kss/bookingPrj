@@ -1,3 +1,8 @@
+const getOffersUrl = "http://localhost:4000/api/offers";
+let response = await fetch(getOffersUrl);
+export const offers = await response.json();
+
+
 export const randoms_limits = {
   min: 1,
   max: 8,
@@ -29,4 +34,10 @@ export const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 
 export const title_validation = {
   min_lenght: 30,
   max_lenght: 100,
+}
+export const filter = {
+  limit: 10,
+  rangeMin: 0,
+  rangeMax: 9,
+  defaultType: 'any'
 }
